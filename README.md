@@ -31,4 +31,4 @@ the default mode is 2.
 
 sample:
 
-python3 test.py 1
+python3 run.py test.txt 1
