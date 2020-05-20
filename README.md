@@ -3,7 +3,9 @@ This project is aim at decode SHA-512 password in linux /etc/shadow file.
 The project should be run in this way:
 
 First install passlib and progress library:
+
 pip3 install progress
+
 pip3 install passlib
 
 Then create a file contain the ciphertext you wish to decode, the ciphertext should in this format:
