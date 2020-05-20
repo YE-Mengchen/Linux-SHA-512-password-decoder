@@ -1,4 +1,5 @@
 from passlib.hash import sha512_crypt
+from progress.bar import Bar
 import sys
 
 if len(sys.argv) > 3:
@@ -44,6 +45,7 @@ def decode(ciphertext,mode):
             test = fw[i].strip()
             h_test = sha512_crypt.using(salt=salt0,rounds=5000).hash(test)
             if h_test == compare:
+                print("\n")
                 print("solved!!!")
                 print("The password is: {}".format(test))
                 bar.finish()
