@@ -1,5 +1,4 @@
 from passlib.hash import sha512_crypt
-from progress.bar import Bar
 import sys
 
 if len(sys.argv) > 3:
@@ -8,7 +7,7 @@ if len(sys.argv) > 3:
 if len(sys.argv) < 2:
     print("The argument you give is too less. Please run in this format: python run.py ciphertextfile [mode].If you have question please read READ.md.")
     exit()
-
+print("[!] legal disclaimer: Usage of this project for decode password of attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program\n\n\n")
 ciphertext_f = sys.argv[1]
 ciphertext_f0 = open(ciphertext_f,"r+")
 ciphertext = ciphertext_f0.readline().strip()
@@ -25,7 +24,7 @@ def decode(ciphertext,mode):
         file0 = open("mode1.txt","r+")
     elif mode == 2:
         file0 = open("mode2.txt","r+")
-    elif mode == 3:
+    else:
         file0 = open("mode3.txt","r+")
     cipher_list = ciphertext.split(":")[1].split("$")
 
@@ -39,17 +38,13 @@ def decode(ciphertext,mode):
         ct = cipher_list[3]
         fw = file0.readlines()
         compare = '$6$'+salt0+'$'+ct
-        bar = Bar('Processing', max = len(fw), fill = '♡')
         for i in range(len(fw)):
-            bar.next()
             test = fw[i].strip()
             h_test = sha512_crypt.using(salt=salt0,rounds=5000).hash(test)
             if h_test == compare:
                 print("solved!!!")
                 print("The password is: {}".format(test))
-                bar.finish()
                 exit()
-        bar.finish()
 
     if mode in [1,2]:
         print("Cannot find password. You can try the higher mode.")
