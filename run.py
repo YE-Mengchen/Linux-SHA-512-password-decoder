@@ -38,13 +38,17 @@ def decode(ciphertext,mode):
         ct = cipher_list[3]
         fw = file0.readlines()
         compare = '$6$'+salt0+'$'+ct
+        bar = Bar('Processing', max = len(fw), fill = '♡')
         for i in range(len(fw)):
+            bar.next()
             test = fw[i].strip()
             h_test = sha512_crypt.using(salt=salt0,rounds=5000).hash(test)
             if h_test == compare:
                 print("solved!!!")
                 print("The password is: {}".format(test))
+                bar.finish()
                 exit()
+        bar.finish()
 
     if mode in [1,2]:
         print("Cannot find password. You can try the higher mode.")
