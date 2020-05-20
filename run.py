@@ -1,4 +1,5 @@
 from passlib.hash import sha512_crypt
+from progress.bar import Bar
 import sys
 
 if len(sys.argv) > 3:
@@ -38,15 +39,17 @@ def decode(ciphertext,mode):
         ct = cipher_list[3]
         fw = file0.readlines()
         compare = '$6$'+salt0+'$'+ct
+        bar = Bar('Processing', max = len(fw), fill = '♡')
         for i in range(len(fw)):
-            if i % 5000 ==0:
-                print("Progress:{}/{}".format(i,len(fw)))
+            bar.next()
             test = fw[i].strip()
             h_test = sha512_crypt.using(salt=salt0,rounds=5000).hash(test)
             if h_test == compare:
                 print("solved!!!")
                 print("The password is: {}".format(test))
+                bar.finish()
                 exit()
+        bar.finish()
 
     if mode in [1,2]:
         print("Cannot find password. You can try the higher mode.")

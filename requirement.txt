@@ -1,3 +1,4 @@
-This project needs python passlib library
+This project needs python passlib and progress library
 You can install it simply by
 pip3 install passlib
+pip3 install progress
