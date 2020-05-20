@@ -39,6 +39,8 @@ def decode(ciphertext,mode):
         fw = file0.readlines()
         compare = '$6$'+salt0+'$'+ct
         for i in range(len(fw)):
+            if i % 5000 ==0:
+                print("Progress:{}/{}".format(i,len(fw)))
             test = fw[i].strip()
             h_test = sha512_crypt.using(salt=salt0,rounds=5000).hash(test)
             if h_test == compare:
